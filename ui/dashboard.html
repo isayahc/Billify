@@ -275,7 +275,9 @@ a:hover{color:var(--lx-plum-700);}
   const SAME_SVG = '<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" style="flex:none;"><path d="M3.2 8.6l3 3L12.8 5" fill="none" stroke="currentColor" style="stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;"></path></svg>';
   const DIFF_SVG = '<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" style="flex:none;color:var(--lx-lime-400);"><path d="M3 6h10M3 10.5h10M10.5 2.5l-5 11" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;"></path></svg>';
 
-  const state = { version: 'v1', selectedId: 'email_014', filter: 'all', toggled: false };
+  // Defaults: v1 + email_014. The upload page's sample links can override via ?v=v2&email=email_022.
+  const params = new URLSearchParams(window.location.search);
+  const state = { version: params.get('v') === 'v2' ? 'v2' : 'v1', selectedId: params.get('email') || 'email_014', filter: 'all', toggled: false };
 
   const $ = (id) => document.getElementById(id);
   const listEl = $('list'), detailEl = $('detail');
