@@ -1,0 +1,17 @@
+GREENLEAF FACILITIES
+35 Pearl Ave, Brooklyn, NY 11201 | billing@greenleaffm.com
+INVOICE
+Bill to: Invoice No.: INV-0456
+Ledgerline Labs, Inc. Invoice Date: October 14, 2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: 11/13/2026
+ap@ledgerlinelabs.example Purchase Order: PO-4583
+Description Qty Unit price Amount
+Consulting, hourly 8 $225.00 $1,800.00
+Temp staffing, hourly 4 $46.00 $184.00
+Subtotal $1,984.00
+TOTAL DUE $1,984.00
+Payment details
+Remit to: First Example Bank, acct XXXX3100
+Please reference INV-0456 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

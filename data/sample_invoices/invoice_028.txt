@@ -1,0 +1,18 @@
+Brightwater Catering INVOICE
+230 Bowery, New York, NY 10012
+billing@brightwatercatering.com
+Bill to: Invoice Number: INV-0272
+Ledgerline Labs, Inc. Invoice Date: 09/30/2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: October 30, 2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4553
+Description Qty Unit price Amount
+Shipping cartons, bundle of 25 10 $47.00 $470.00
+Printed brochures, 500 pcs 1 $640.00 $640.00
+Subtotal $1,110.00
+Sales tax (8.875%) $98.51
+TOTAL DUE $1,208.51
+Payment details
+Remit to: First Example Bank, acct XXXX6214
+Please reference INV-0272 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

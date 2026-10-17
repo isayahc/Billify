@@ -1,0 +1,19 @@
+Thamesway Consulting Ltd INVOICE
+22 Southwark St, London SE1 1TU, United Kingdom
+billing@thamesway.co.uk
+Bill to: Invoice Number: INV-0704
+Ledgerline Labs, Inc. Invoice Date: 09/10/2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 24/10/2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4643
+Description Qty Unit price Amount
+Same-day courier runs 3 £38.00 £114.00
+Legal review, hourly 5 £480.00 £2,400.00
+Temp staffing, hourly 10 £46.00 £460.00
+Office cleaning, weekly 5 £390.00 £1,950.00
+Subtotal £4,924.00
+TOTAL DUE £4,924.00
+Payment details
+Remit to: First Example Bank, acct XXXX9693
+Please reference INV-0704 with your payment. Currency: GBP.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

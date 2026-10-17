@@ -1,0 +1,18 @@
+NORTHWIND OFFICE SUPPLIES INC.
+1450 Commerce Blvd, Miami, FL 33101 | billing@northwind-office.net
+INVOICE
+Bill to: Invoice No.: INV-0852
+Ledgerline Labs, Inc. Invoice Date: September 2, 2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: October 2, 2026
+ap@ledgerlinelabs.example
+Description Qty Unit price Amount
+Ergonomic office chair 10 $412.00 $4,120.00
+Subtotal $4,120.00
+Sales tax (8.875%) $365.65
+TOTAL DUE $4,485.65
+Payment details
+Remit to: Coastal Example Bank, acct XXXX3569
+Please reference INV-0852 with your payment. Currency: USD.
+Please note our NEW remittance details below. Payments to the old account will be returned.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

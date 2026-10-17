@@ -1,0 +1,17 @@
+MERIDIAN STAFFING PARTNERS
+15 Court Sq, Long Island City, NY 11101 | billing@meridianstaff.com
+INVOICE
+Bill to: Invoice No.: INV-0372
+Ledgerline Labs, Inc. Invoice Date: 09/21/2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: October 21, 2026
+ap@ledgerlinelabs.example PO Number: PO-4531
+Description Qty Unit price Amount
+Office cleaning, weekly 4 $390.00 $1,560.00
+Temp staffing, hourly 5 $46.00 $230.00
+Subtotal $1,790.00
+TOTAL DUE $1,790.00
+Payment details
+Remit to: First Example Bank, acct XXXX5465
+Please reference INV-0372 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

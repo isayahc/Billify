@@ -1,0 +1,19 @@
+Kessler Druckerei GmbH INVOICE
+Hafenstraße 12, 20457 Hamburg, Germany
+billing@kessler-druck.de
+Bill to: Rechnungsnr. / Invoice No.: INV-0156
+Ledgerline Labs, Inc. Datum / Date: 10.09.2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Fällig / Due: 25.10.2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4612
+Description Qty Unit price Amount
+Standing desk frame 1 365,00 € 365,00 €
+Copy paper, letter, 10-ream case 5 54,00 € 270,00 €
+Printed brochures, 500 pcs 12 640,00 € 7.680,00 €
+Subtotal 8.315,00 €
+USt. / VAT (reverse charge) 0,00 €
+Gesamt / Total 8.315,00 €
+Payment details
+Remit to: First Example Bank, acct XXXX2296
+Please reference INV-0156 with your payment. Currency: EUR.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

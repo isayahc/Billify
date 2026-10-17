@@ -1,0 +1,20 @@
+Acme Corporation INVOICE
+410 Industrial Way, Newark, NJ 07105
+billing@acme-corp.com
+Bill to: Invoice #: INV-0525
+Ledgerline Labs, Inc. Invoice Date: October 5, 2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/20/2026
+ap@ledgerlinelabs.example Purchase Order: PO-4577
+Description Qty Unit price Amount
+Standing desk frame 8 $365.00 $2,920.00
+Shipping cartons, bundle of 25 1 $47.00 $47.00
+Catered lunch, per head 8 $28.50 $228.00
+Copy paper, letter, 10-ream case 1 $54.00 $54.00
+Subtotal $3,249.00
+Sales tax (8.875%) $288.35
+TOTAL DUE $3,537.35
+Payment details
+Remit to: First Example Bank, acct XXXX5298
+Please reference INV-0525 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

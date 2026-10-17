@@ -1,0 +1,18 @@
+GREENLEAF FACILITIES
+35 Pearl Ave, Brooklyn, NY 11201 | billing@greenleaffm.com
+INVOICE
+Bill to: Invoice Number: INV-0468
+Ledgerline Labs, Inc. Invoice Date: September 24, 2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: 11/08/2026
+ap@ledgerlinelabs.example
+Description Qty Unit price Amount
+Brand design sprint 1 $3,600.00 $3,600.00
+Legal review, hourly 1 $480.00 $480.00
+Same-day courier runs 5 $38.00 $190.00
+Subtotal $4,270.00
+TOTAL DUE $4,270.00
+Payment details
+Remit to: First Example Bank, acct XXXX9077
+Please reference INV-0468 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

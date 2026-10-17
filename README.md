@@ -2,22 +2,122 @@
 
 An accounts-payable agent that turns invoice emails into bookkeeping records while escalating only the invoices that actually need a human.
 
-**Demo:** [interactive prototype](https://claude.ai/artifact/MRkEdrP7EeaLh26vZBnX12) (Add invoices → Review → Transfer to a simulated expense portal; v1 vs v2 in Demo settings) · [pitch video](https://claude.ai/artifact/8YqPzEdShwr58v3BQrEV21) · run the real product locally with `python -m src.server` (CSV and PDF invoices, see below).
+**Demo:** [interactive prototype](https://claude.ai/artifact/MRkEdrP7EeaLh26vZBnX12) (Add invoices → Review → Transfer to a simulated expense portal; v1 vs v2 in Demo settings) · [pitch video](https://claude.ai/artifact/8YqPzEdShwr58v3BQrEV21) · run the real product locally: see **Run it**.
+
+## Run it
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt   # needed for PDF reading by Claude, PRISM traces and src/agent.py
+python -m src.server              # standard library only; PORT changes the port
+```
+
+- **http://127.0.0.1:8000**: the expense workflow (Add invoices → Review → Transfer to Acme Expense).
+- **http://127.0.0.1:8000/dashboard**: CSV and PDF invoice review (**Import CSVs or PDFs**);
+  **http://127.0.0.1:8000/import** has the import guide and the sample CSV.
+- Optional, exported in the shell before starting the server (no `.env` file is loaded):
+  `ANTHROPIC_API_KEY` to read invoice PDFs with Claude, `PRISMTRACE_API_KEY`,
+  `PRISMTRACE_PROJECT_ID` and `PRISMTRACE_HOST` to send traces to PRISM (see **PRISM traces**),
+  and `BILLIFY_DB_PATH` to move the SQLite file (default `data/billify.sqlite3`).
+- **Browser extension** (`extension/`): open `chrome://extensions`, turn on **Developer mode**,
+  choose **Load unpacked** and select the `extension/` folder. In the popup, pick a demo invoice,
+  open a **New expense** form and click **Prefill form**; it fills the form's fields by their labels.
+  It uses five built-in demo invoices (`USE_MOCK_DATA` in `extension/popup.js`) and does not call
+  the server yet.
+- Tests: `python -m unittest discover -s tests -v` and `node --test tests/test_dashboard.cjs`
+  (see **Verification**).
+
+## Expense workflow: Add invoices → Review → Transfer
+
+With the server running (see **Run it**), open **http://127.0.0.1:8000**.
+
+1. **Add invoices**: upload files, pick from the **Online folder** or **Email inbox** (both are the
+   made-up samples in `data/sample_invoices/`), paste invoice text, or choose **Try it with sample
+   invoices** for all 50. Nothing is read until you confirm.
+2. **Review what Billify read**: the server reads each invoice as written, cleans every value up to
+   the portal's format and runs the AP checks. Each card shows the value Billify will send, what the
+   invoice said, every cleanup, the AP findings and a pre-check against the portal's rules. An
+   invoice that fails an AP check is **held**: it is unchecked and the reason is listed. **Agent steps**
+   shows the steps the server ran for that invoice.
+3. **Transfer to Acme Expense**: Billify fills the simulated portal's form for each checked invoice and
+   submits it. The portal answers 201 (created, pending approval), 422 (field errors) or 409 (already on
+   this report). The result lists every rejection with its field and reason. **Fix rejected invoices**
+   sends corrected ones to the same report.
+
+Reading never guesses: an ISO, `day.month.year` or month-name date is read directly; a slash date is
+read only when its order is certain (one part above 12, or both parts equal), or month first when the
+vendor's address is in the US. Otherwise the date is left empty and the invoice is held (`AMBIGUOUS_DATE`). Amounts such as `1.250,00` and
+`$1,250.00` become `1250.00`, symbols become ISO codes, an approved vendor's name variants become the
+approved name, invoice numbers such as `inv-902` become `INV-0902`, line items map to a portal category,
+and an invoice without a cost center gets the default (**Demo settings**, `CC-210`). Text PDFs are read in
+the browser with pdf.js; a PDF without a text layer is read by Claude through `src/extract.py` when the
+server has `ANTHROPIC_API_KEY`, and otherwise asks for pasted text.
+
+The AP checks are the CSV validator's (`process_csv`), run one invoice at a time against
+`data/workflow_reference.json`, so an invoice that passes counts against later copies and its PO balance.
+The workflow adds three holds of its own: `AMBIGUOUS_DATE`, `DATE_IN_FUTURE` and `BANK_DETAILS_CHANGED`.
+Point `BILLIFY_WORKFLOW_REFERENCE_PATH` at your own file to change the reference data. The portal, its
+reports and expenses, and a log of every transfer run are kept in the same SQLite file as the dashboard
+(`BILLIFY_DB_PATH`). The dashboard is at `/dashboard`.
+
+### Agent v1 and v2
+
+**Demo settings → Send values exactly as written (agent v1)** reproduces the original bug: reading,
+cleanup and checks are unchanged, but the portal is filled with the invoice's own wording, and no
+default cost center. Agent v2 (the default) sends the cleaned values. On the 50 samples, with today
+2026-10-17:
+
+| | Sent | Created | Rejected | Held | Rejection codes |
+| --- | --- | --- | --- | --- | --- |
+| v1 | 33 | 0 | 33 | 17 | `INVALID_DATE_FORMAT` 33, `INVALID_CATEGORY` 33, `REQUIRED` (cost center) 33, `INVALID_AMOUNT` 24 |
+| v2 | 33 | 33 | 0 | 17 | none |
+
+After a v1 transfer, **Replay the same invoices with v2** reads the same files again with v2 and
+transfers them to a new report.
+
+### Sample invoices
+
+The 50 invoices are fictional, and so is `data/workflow_reference.json`: it approves the 13 vendors
+that bill under their own name, has a PO for each original invoice that quotes one (owned by that
+vendor, in the invoice's currency, with the total rounded up to the next 100 as its remaining balance),
+and no earlier bills. These traps are planted; the other 33 invoices pass:
+
+| Invoice | Trap | Caught by |
+| --- | --- | --- |
+| 018, 021, 029, 034, 043, 050 | Re-sent invoice with the number written another way (`INV 563`, `inv-902`, `INV0870`, `No. 0564`, `#0866`, `Invoice #881`) | `DUPLICATE_INVOICE`, and `PO_OVERBILLING` because the first copy already used the PO |
+| 012, 036 | Look-alike vendor (`ACME CORP.`, `NORTHWIND OFFICE SUPPLIES INC.`) announcing new bank details, no PO | `UNKNOWN_VENDOR`, `MISSING_PO`, `BANK_DETAILS_CHANGED` |
+| 030, 033 | Vendor not approved (`Brightline Consulting LLC`, `Rapid Office Solutions Inc.`), PO not on file | `UNKNOWN_VENDOR`, `UNKNOWN_PO` |
+| 040, 041, 042 | No PO number | `MISSING_PO` |
+| 045 | Dated 2026-10-22 | `DATE_IN_FUTURE` (until that date passes) |
+| 013, 023 | UK vendor, slash date that reads both ways (`09/10/2026`, `04/10/2026`) | `AMBIGUOUS_DATE`; the date is left empty, so also `MISSING_FIELD` |
+| 016 | Total is 90.00 more than line items plus tax | `TOTAL_MISMATCH`, and `PO_OVERBILLING` because the PO covers the correct total |
+
+Invoices 011 and 017 share the number `INV-0525` but come from different vendors, so neither is a duplicate.
+
+### Endpoints and PRISM
+
+`GET /api/samples`, `POST /api/read` (`{"version", "default_cost_center", "files": [{"name", "text"} or
+{"name", "pdf": "<base64>"}]}`), `POST /api/precheck` (`{"fields"}`), `POST /api/transfer`
+(`{"version", "report_id", "items": [{"id", "name", "fields"}]}`) and `GET /api/portal/report?id=`.
+POSTs take JSON from the same origin only, with bounded bodies; bad input gets a 400 with a message.
+
+With `PRISMTRACE_API_KEY` set (see **PRISM traces** below), each invoice is one PRISM session with
+three runs: `read_invoice` (8 tool spans: read document, extract fields, normalize date, amount,
+currency and identity, map category, validate fields), the validator's `validate_invoice` (7 tool
+spans) and `transfer_invoice` (`fill_portal_form`, `submit_expense`). A 422 or 409 from the portal is
+raised inside `submit_expense`, so it is recorded as a failed tool span and a failed run. The server
+also evaluates an alert rule on its own run log (more than 20% of the last 10 transfer runs failed)
+and groups failures by the portal's error code, explaining v1's root cause; these come back in the
+transfer response and are not shown in the page.
 
 
 ## CSV invoice review (working feature)
 
-From the repository root, run:
-
-```bash
-python -m src.server
-```
-
-Open **http://127.0.0.1:8000** for the live invoice dashboard. Use **Import CSVs**
+With the server running (see **Run it**), open **http://127.0.0.1:8000/dashboard** for the live invoice dashboard. Use **Import CSVs**
 to select one or more files. The **Import guide & sample** link opens `/import`,
 where you can download the sample CSV and validate it. The sample produces **one passed invoice and six review
 items**. Download findings as CSV, full results as JSON, or draft reimbursement
-forms as JSON. The same live dashboard is also available at `/dashboard`.
+forms as JSON.
 The validator and local server use the Python standard library; CSV review needs
 no model API key. No model makes the accounting decisions.
 
@@ -90,13 +190,7 @@ shows these notes and the values as written under **Read from PDF**. The vendor 
 comes from the approved name or alias, or else from the PO, so a look-alike name is
 still reported as `VENDOR_NAME_MISMATCH`. Requests opt into server-side fallback
 (`fallbacks: "default"`), so a safety decline is retried on Anthropic's recommended
-model.
-
-```bash
-pip install -r requirements.txt
-export ANTHROPIC_API_KEY='your-anthropic-key'
-python -m src.server
-```
+model. Install `requirements.txt` and export `ANTHROPIC_API_KEY` before starting the server.
 
 Sample PDFs made from `data/invoices.csv` are in `data/sample_pdfs/`; regenerate
 them with `python scripts/make_sample_pdfs.py`. `POST /api/import-pdf` takes
@@ -123,8 +217,8 @@ amounts, and save decision. A PDF invoice adds a `read_invoice_pdf` run with one
 workflow; these are workflow traces, not claimed LLM calls. Findings and normalized
 invoice fields are included in trace outputs. Use fictional data for the demo.
 The SDK flushes at each invoice's root-chain completion, so delivery can add
-latency. The UI reports whether tracing is configured, not whether remote delivery
-succeeded; check the server logs and PRISM Steps to verify receipt.
+latency. The pages do not show PRISM. The import response's `tracing_enabled` reports whether tracing is
+configured, not whether remote delivery succeeded; check the server logs and PRISM Steps to verify receipt.
 
 Correctly flagging a bad invoice is a successful validation run. Execution
 exceptions are traced as failures. This feature does not fabricate failed runs,
@@ -139,8 +233,9 @@ node --test tests/test_dashboard.cjs
 
 Tests cover financial controls, batch duplicates and balances, mixed valid/invalid
 rows, formula-safe CSV export, HTTP upload, PDF reading with a stand-in for Claude (request shape, refusals,
-missing credentials, vendor matching, saved PDF imports), and (when the SDK is installed) real
-PRISM span serialization against a mocked transport. Live PRISM delivery requires
+missing credentials, vendor matching, saved PDF imports), the expense workflow (reading the samples,
+never-guessed dates, the planted traps, portal rules, v1 against v2 on all 50 samples, the alert rule,
+the endpoints), and (when the SDK is installed) real PRISM span serialization against a mocked transport. Live PRISM delivery requires
 your project credentials.
 
 ## Python model setup and PRISM tracing

@@ -1,0 +1,18 @@
+Pixelforge Design Studio
+Invoice 501 W 27th St, New York, NY 10001
+billing@pixelforge.studio
+Bill to: Invoice #: INV 563
+Ledgerline Labs, Inc. Invoice Date: 10/08/2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/23/2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4559
+Description Qty Unit price Amount
+Legal review, hourly 8 $480.00 $3,840.00
+HVAC maintenance visit 5 $520.00 $2,600.00
+Office cleaning, weekly 10 $390.00 $3,900.00
+Subtotal $10,340.00
+TOTAL DUE $10,340.00
+Payment details
+Remit to: First Example Bank, acct XXXX9573
+Please reference INV 563 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

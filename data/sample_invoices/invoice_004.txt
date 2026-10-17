@@ -1,0 +1,18 @@
+Northwind Office Supply
+Invoice 88 Canal St, New York, NY 10013
+billing@northwindoffice.com
+Bill to: Invoice Number: INV-0840
+Ledgerline Labs, Inc. Invoice Date: September 18, 2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: October 3, 2026
+ap@ledgerlinelabs.example Purchase Order: PO-4528
+Description Qty Unit price Amount
+Standing desk frame 5 $365.00 $1,825.00
+Printed brochures, 500 pcs 1 $640.00 $640.00
+Subtotal $2,465.00
+Sales tax (8.875%) $218.77
+TOTAL DUE $2,683.77
+Payment details
+Remit to: First Example Bank, acct XXXX4157
+Please reference INV-0840 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

@@ -1,0 +1,16 @@
+Thamesway Consulting Ltd INVOICE
+22 Southwark St, London SE1 1TU, United Kingdom
+billing@thamesway.co.uk
+Bill to: Invoice #: INV-0688
+Ledgerline Labs, Inc. Invoice Date: 6 September 2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: 21 October 2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4520
+Description Qty Unit price Amount
+Office cleaning, weekly 8 £390.00 £3,120.00
+Subtotal £3,120.00
+TOTAL DUE £3,120.00
+Payment details
+Remit to: First Example Bank, acct XXXX7695
+Please reference INV-0688 with your payment. Currency: GBP.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

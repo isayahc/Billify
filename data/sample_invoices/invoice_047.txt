@@ -1,0 +1,17 @@
+Northwind Office Supply
+Invoice 88 Canal St, New York, NY 10013
+billing@northwindoffice.com
+Bill to: Invoice #: INV-0849
+Ledgerline Labs, Inc. Invoice Date: 10/05/2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: November 19, 2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4598
+Description Qty Unit price Amount
+Copy paper, letter, 10-ream case 2 $54.00 $108.00
+Subtotal $108.00
+Sales tax (8.875%) $9.58
+TOTAL DUE $117.58
+Payment details
+Remit to: First Example Bank, acct XXXX3105
+Please reference INV-0849 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

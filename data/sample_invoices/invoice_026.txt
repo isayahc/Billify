@@ -1,0 +1,16 @@
+Pixelforge Design Studio
+Invoice 501 W 27th St, New York, NY 10001
+billing@pixelforge.studio
+Bill to: Invoice No.: INV-0569
+Ledgerline Labs, Inc. Invoice Date: 10/05/2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: November 4, 2026
+ap@ledgerlinelabs.example PO Number: PO-4581
+Description Qty Unit price Amount
+Office cleaning, weekly 2 $390.00 $780.00
+Subtotal $780.00
+TOTAL DUE $780.00
+Payment details
+Remit to: First Example Bank, acct XXXX8250
+Please reference INV-0569 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

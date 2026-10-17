@@ -1,0 +1,18 @@
+BLUEPEAK CLOUD SERVICES
+1200 Market St, San Francisco, CA 94102 | billing@bluepeak.io
+INVOICE
+Bill to: Invoice #: INV-0103
+Ledgerline Labs, Inc. Invoice Date: September 28, 2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/13/2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4606
+Description Qty Unit price Amount
+Endpoint protection, per seat 20 $12.00 $240.00
+Security audit, fixed fee 12 $4,200.00 $50,400.00
+Object storage, 5 TB 2 $115.00 $230.00
+Subtotal $50,870.00
+TOTAL DUE $50,870.00
+Payment details
+Remit to: First Example Bank, acct XXXX4885
+Please reference INV-0103 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

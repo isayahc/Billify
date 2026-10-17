@@ -1,0 +1,21 @@
+ACME CORP.
+PO Box 2290, Dover, DE 19901 | billing@acme-corp.co
+INVOICE
+Bill to: Invoice No.: INV-0532
+Ledgerline Labs, Inc. Invoice Date: October 2, 2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/17/2026
+ap@ledgerlinelabs.example
+Description Qty Unit price Amount
+Catered lunch, per head 5 $28.50 $142.50
+Shipping cartons, bundle of 25 8 $47.00 $376.00
+Monitor arm, dual 3 $139.00 $417.00
+Toner cartridge, black 2 $189.00 $378.00
+Subtotal $1,313.50
+Sales tax (8.875%) $116.57
+TOTAL DUE $1,430.07
+Payment details
+Remit to: Coastal Example Bank, acct XXXX8888
+Please reference INV-0532 with your payment. Currency: USD.
+Please note our NEW remittance details below. Payments to the old account will be returned.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

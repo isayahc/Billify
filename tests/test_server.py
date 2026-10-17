@@ -25,7 +25,7 @@ class ServerTests(unittest.TestCase):
         thread.start()
         base = f'http://127.0.0.1:{server.server_port}'
         try:
-            with urlopen(base) as response:
+            with urlopen(base + '/dashboard') as response:
                 self.assertIn(b'Has errors', response.read())
             request = Request(base + '/api/import', json.dumps({'csv': (ROOT / 'data/invoices.csv').read_text()}).encode(), {'Content-Type': 'application/json'})
             with urlopen(request) as response:

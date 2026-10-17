@@ -1,0 +1,17 @@
+Harbor & Vale Legal LLP
+Invoice 77 Water St, New York, NY 10005
+billing@harborvale.law
+Bill to: Invoice No.: INV-0870
+Ledgerline Labs, Inc. Invoice Date: September 9, 2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: October 24, 2026
+ap@ledgerlinelabs.example PO Number: PO-4562
+Description Qty Unit price Amount
+Brand design sprint 10 $3,600.00 $36,000.00
+HVAC maintenance visit 12 $520.00 $6,240.00
+Subtotal $42,240.00
+TOTAL DUE $42,240.00
+Payment details
+Remit to: First Example Bank, acct XXXX5820
+Please reference INV-0870 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

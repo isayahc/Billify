@@ -1,0 +1,18 @@
+Harbor & Vale Legal LLP
+Invoice 77 Water St, New York, NY 10005
+billing@harborvale.law
+Bill to: Invoice No.: INV-0869
+Ledgerline Labs, Inc. Invoice Date: September 4, 2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: October 4, 2026
+ap@ledgerlinelabs.example PO Number: PO-4558
+Description Qty Unit price Amount
+Same-day courier runs 20 $38.00 $760.00
+Consulting, hourly 12 $225.00 $2,700.00
+HVAC maintenance visit 8 $520.00 $4,160.00
+Subtotal $7,620.00
+TOTAL DUE $7,620.00
+Payment details
+Remit to: First Example Bank, acct XXXX4786
+Please reference INV-0869 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

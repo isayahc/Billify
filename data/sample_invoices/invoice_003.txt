@@ -1,0 +1,16 @@
+Summit Courier Co. INVOICE
+9 Hudson Yards Dr, Jersey City, NJ 07310
+billing@summitcourier.com
+Bill to: Invoice No.: INV-0523
+Ledgerline Labs, Inc. Invoice Date: 09/17/2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: November 1, 2026
+ap@ledgerlinelabs.example Purchase Order: PO-4539
+Description Qty Unit price Amount
+Temp staffing, hourly 4 $46.00 $184.00
+Subtotal $184.00
+TOTAL DUE $184.00
+Payment details
+Remit to: First Example Bank, acct XXXX9882
+Please reference INV-0523 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

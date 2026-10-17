@@ -1,0 +1,18 @@
+Brightwater Catering INVOICE
+230 Bowery, New York, NY 10012
+billing@brightwatercatering.com
+Bill to: Invoice #: INV-0274
+Ledgerline Labs, Inc. Invoice Date: 10/10/2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/25/2026
+ap@ledgerlinelabs.example PO Number: PO-4644
+Description Qty Unit price Amount
+Monitor arm, dual 5 $139.00 $695.00
+Standing desk frame 8 $365.00 $2,920.00
+Subtotal $3,615.00
+Sales tax (8.875%) $320.83
+TOTAL DUE $4,025.83
+Payment details
+Remit to: First Example Bank, acct XXXX5084
+Please reference INV-0274 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

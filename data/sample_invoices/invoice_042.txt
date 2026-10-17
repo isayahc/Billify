@@ -1,0 +1,19 @@
+GREENLEAF FACILITIES
+35 Pearl Ave, Brooklyn, NY 11201 | billing@greenleaffm.com
+INVOICE
+Bill to: Invoice No.: INV-0462
+Ledgerline Labs, Inc. Invoice Date: October 10, 2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/25/2026
+ap@ledgerlinelabs.example
+Description Qty Unit price Amount
+Same-day courier runs 1 $38.00 $38.00
+Office cleaning, weekly 12 $390.00 $4,680.00
+HVAC maintenance visit 4 $520.00 $2,080.00
+Consulting, hourly 12 $225.00 $2,700.00
+Subtotal $9,498.00
+TOTAL DUE $9,498.00
+Payment details
+Remit to: First Example Bank, acct XXXX5500
+Please reference INV-0462 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

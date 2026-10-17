@@ -1,0 +1,16 @@
+Thamesway Consulting Ltd INVOICE
+22 Southwark St, London SE1 1TU, United Kingdom
+billing@thamesway.co.uk
+Bill to: Invoice Number: INV-0692
+Ledgerline Labs, Inc. Invoice Date: 1 October 2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: 31 October 2026
+ap@ledgerlinelabs.example PO Number: PO-4574
+Description Qty Unit price Amount
+Consulting, hourly 1 £225.00 £225.00
+Subtotal £225.00
+TOTAL DUE £225.00
+Payment details
+Remit to: First Example Bank, acct XXXX2616
+Please reference INV-0692 with your payment. Currency: GBP.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

@@ -1,0 +1,17 @@
+Ironclad IT Security
+Invoice 600 Congress Ave, Austin, TX 78701
+billing@ironcladsec.com
+Bill to: Invoice #: INV-0898
+Ledgerline Labs, Inc. Invoice Date: October 4, 2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: 11/18/2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4589
+Description Qty Unit price Amount
+Endpoint protection, per seat 8 $12.00 $96.00
+Cloud compute, monthly 10 $1,840.00 $18,400.00
+Subtotal $18,496.00
+TOTAL DUE $18,496.00
+Payment details
+Remit to: First Example Bank, acct XXXX3525
+Please reference INV-0898 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

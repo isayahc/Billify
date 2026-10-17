@@ -1,4 +1,6 @@
-"""Local CSV review server. Run with python -m src.server."""
+"""Local Billify server: the expense workflow, the CSV review dashboard and their JSON endpoints.
+
+Run with python -m src.server."""
 from __future__ import annotations
 
 import csv
@@ -8,24 +10,33 @@ import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from src.extract import ExtractionError, decode_pdfs, read_pdfs
 from src.invoices import results_csv
+from src.portal import CATEGORIES, CURRENCIES, Portal, validate
 from src.store import InvoiceStore
+from src.workflow import read_items, samples, transfer_items
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BODY = 2_000_000
 MAX_PDF_BODY = 24_000_000  # base64 PDFs; Claude accepts up to 32 MB per request
+LIMITS = {'/api/import': MAX_BODY, '/api/import-pdf': MAX_PDF_BODY,
+          '/api/read': MAX_PDF_BODY, '/api/transfer': MAX_BODY, '/api/precheck': 64_000}
+WORKFLOW = ('/api/read', '/api/precheck', '/api/transfer')
 
 
 class InvoiceHandler(BaseHTTPRequestHandler):
-    """Serve the review UI and a bounded JSON import endpoint on localhost."""
+    """Serve the workflow and review UIs and bounded JSON endpoints on localhost."""
     trace_handler: Any = None
 
     def store(self) -> InvoiceStore:
         """Resolve the operator-configured persistent invoice database."""
         return InvoiceStore(Path(os.environ.get('BILLIFY_DB_PATH', str(ROOT / 'data/billify.sqlite3'))))
+
+    def portal(self) -> Portal:
+        """The simulated expense portal, kept in the same database file."""
+        return Portal(Path(os.environ.get('BILLIFY_DB_PATH', str(ROOT / 'data/billify.sqlite3'))))
 
     def respond(self, status: int, body: bytes, content_type: str) -> None:
         """Write a complete response without caching financial data."""
@@ -38,8 +49,9 @@ class InvoiceHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:
-        """Serve only explicitly allowed static and demo files."""
-        path = urlparse(self.path).path
+        """Serve only explicitly allowed static and demo files, and the read-only JSON endpoints."""
+        url = urlparse(self.path)
+        path = url.path
         if path == '/api/documents':
             try:
                 documents = self.store().documents()
@@ -48,7 +60,24 @@ class InvoiceHandler(BaseHTTPRequestHandler):
                 logging.exception('Could not load invoice history')
                 self.respond(500, b'{"error":"Could not load invoice history. See server logs."}', 'application/json')
             return
-        files = {'/': ('ui/dashboard.html', 'text/html; charset=utf-8'),
+        if path == '/api/samples':
+            body = {**samples(ROOT), 'categories': CATEGORIES, 'currencies': CURRENCIES}
+            self.respond(200, json.dumps(body).encode(), 'application/json')
+            return
+        if path == '/api/portal/report':
+            report_id = parse_qs(url.query).get('id', [''])[0]
+            if not report_id:
+                self.respond(400, b'{"error":"Provide a report id."}', 'application/json')
+                return
+            try:
+                report = self.portal().report(report_id)
+            except ValueError as exc:
+                self.respond(404, json.dumps({'error': str(exc)}).encode(), 'application/json')
+                return
+            self.respond(200, json.dumps(report).encode(), 'application/json')
+            return
+        files = {'/': ('ui/workflow.html', 'text/html; charset=utf-8'),
+                 '/workflow.js': ('ui/workflow.js', 'text/javascript; charset=utf-8'),
                  '/import': ('ui/import.html', 'text/html; charset=utf-8'),
                  '/dashboard': ('ui/dashboard.html', 'text/html; charset=utf-8'),
                  '/sample.csv': ('data/invoices.csv', 'text/csv; charset=utf-8'),
@@ -61,8 +90,8 @@ class InvoiceHandler(BaseHTTPRequestHandler):
         self.respond(200, (ROOT / filename).read_bytes(), content_type)
 
     def do_POST(self) -> None:
-        """Validate uploaded CSV or invoice PDFs using server-owned reference data."""
-        if self.path not in ('/api/import', '/api/import-pdf'):
+        """Validate uploaded CSV or invoice PDFs, or run a workflow step, using server-owned reference data."""
+        if self.path not in LIMITS:
             self.respond(404, b'Not found', 'text/plain')
             return
         origin = self.headers.get('Origin')
@@ -71,12 +100,16 @@ class InvoiceHandler(BaseHTTPRequestHandler):
             return
         try:
             size = int(self.headers.get('Content-Length', '0'))
-            limit = MAX_PDF_BODY if self.path == '/api/import-pdf' else MAX_BODY
+            limit = LIMITS[self.path]
             if size <= 0 or size > limit:
-                raise ValueError(f'Upload must be between 1 byte and {limit // 1_000_000} MB.')
+                shown = f'{limit // 1_000_000} MB' if limit >= 1_000_000 else f'{limit // 1000} KB'
+                raise ValueError(f'Upload must be between 1 byte and {shown}.')
             if self.headers.get_content_type() != 'application/json':
                 raise ValueError('Expected application/json.')
             payload = json.loads(self.rfile.read(size))
+            if self.path in WORKFLOW:
+                self.respond(200, json.dumps(self.workflow(payload)).encode(), 'application/json')
+                return
             reference_path = Path(os.environ.get('BILLIFY_REFERENCE_PATH', str(ROOT / 'data/reference.json')))
             reference = json.loads(reference_path.read_text(encoding='utf-8'))
             if self.path == '/api/import-pdf':
@@ -99,9 +132,23 @@ class InvoiceHandler(BaseHTTPRequestHandler):
         except (ValueError, UnicodeError, csv.Error) as exc:
             self.respond(400, json.dumps({'error': str(exc)}).encode(), 'application/json')
         except Exception:
-            logging.exception('Invoice import failed')
-            self.respond(500, b'{"error":"Import failed. See server logs for the underlying error."}', 'application/json')
+            logging.exception('Request to %s failed', self.path)
+            message = 'Workflow step failed' if self.path in WORKFLOW else 'Import failed'
+            self.respond(500, json.dumps({'error': f'{message}. See server logs for the underlying error.'}).encode(),
+                         'application/json')
 
+    def workflow(self, payload: Any) -> dict[str, Any]:
+        """Read and check invoices, pre-check one claim against the portal rules, or transfer claims."""
+        if self.path == '/api/precheck':
+            if not isinstance(payload, dict) or not isinstance(payload.get('fields'), dict):
+                raise ValueError('Provide the fields to check.')
+            return {'issues': validate(payload['fields'])}
+        if self.path == '/api/read':
+            reference_path = Path(os.environ.get('BILLIFY_WORKFLOW_REFERENCE_PATH',
+                                                 str(ROOT / 'data/workflow_reference.json')))
+            reference = json.loads(reference_path.read_text(encoding='utf-8'))
+            return read_items(payload, reference, self.portal(), self.trace_handler)
+        return transfer_items(payload, self.portal(), self.trace_handler)
 
     def import_pdfs(self, payload: Any, reference: dict[str, Any]) -> dict[str, Any]:
         """Read PDFs with Claude, then save each invoice as its own import named after its file."""
@@ -130,7 +177,8 @@ def main() -> None:
         )
     port = int(os.environ.get('PORT', '8000'))
     server = HTTPServer(('127.0.0.1', port), InvoiceHandler)
-    logging.info('Billify CSV review: http://127.0.0.1:%s (PRISM enabled: %s)', port, bool(InvoiceHandler.trace_handler))
+    logging.info('Billify: http://127.0.0.1:%s (dashboard at /dashboard; PRISM enabled: %s)', port,
+                 bool(InvoiceHandler.trace_handler))
     try:
         server.serve_forever()
     except KeyboardInterrupt:

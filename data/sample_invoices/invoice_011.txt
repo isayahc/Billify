@@ -1,0 +1,19 @@
+Summit Courier Co. INVOICE
+9 Hudson Yards Dr, Jersey City, NJ 07310
+billing@summitcourier.com
+Bill to: Invoice No.: INV-0525
+Ledgerline Labs, Inc. Invoice Date: October 5, 2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: November 19, 2026
+ap@ledgerlinelabs.example PO Number: PO-4627
+Description Qty Unit price Amount
+Consulting, hourly 10 CA$225.00 CA$2,250.00
+Office cleaning, weekly 1 CA$390.00 CA$390.00
+Same-day courier runs 10 CA$38.00 CA$380.00
+Temp staffing, hourly 1 CA$46.00 CA$46.00
+Subtotal CA$3,066.00
+TOTAL DUE CA$3,066.00
+Payment details
+Remit to: First Example Bank, acct XXXX3522
+Please reference INV-0525 with your payment. Currency: CAD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

@@ -1,0 +1,18 @@
+Pixelforge Design Studio
+Invoice 501 W 27th St, New York, NY 10001
+billing@pixelforge.studio
+Bill to: Invoice #: INV-0564
+Ledgerline Labs, Inc. Invoice Date: 09/22/2026
+Attn: Accounts Payable Terms: Net 15
+1216 Broadway, New York, NY 10001 Due Date: 10/07/2026
+ap@ledgerlinelabs.example Purchase Order: PO-4580
+Description Qty Unit price Amount
+Same-day courier runs 8 $38.00 $304.00
+HVAC maintenance visit 1 $520.00 $520.00
+Brand design sprint 12 $3,600.00 $43,200.00
+Subtotal $44,024.00
+TOTAL DUE $44,024.00
+Payment details
+Remit to: First Example Bank, acct XXXX5666
+Please reference INV-0564 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

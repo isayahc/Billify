@@ -52,7 +52,7 @@ function showDetail(doc) {
   fields.append(dl); split.append(fields);
   const provenance = element('article', undefined, 'card'); provenance.append(element('h3', 'Source & decision'));
   const meta = element('dl');
-  for (const [key, value] of [...(doc.pdf_read ? [['Source PDF', doc.filename]] : [['Source CSV', doc.filename], ['CSV line', doc.row_number]]), ['Import ID', doc.import_id], ['PRISM session', doc.session_id], ['Decision', doc.status], ['Form state', doc.reimbursement ? doc.reimbursement.status : 'Not created']]) meta.append(element('dt', key), element('dd', value));
+  for (const [key, value] of [...(doc.pdf_read ? [['Source PDF', doc.filename]] : [['Source CSV', doc.filename], ['CSV line', doc.row_number]]), ['Import ID', doc.import_id], ['Session ID', doc.session_id], ['Decision', doc.status], ['Form state', doc.reimbursement ? doc.reimbursement.status : 'Not created']]) meta.append(element('dt', key), element('dd', value));
   provenance.append(meta);
   if (doc.reimbursement) {
     const btn = element('button', 'Download draft form', 'export');

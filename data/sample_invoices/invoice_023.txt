@@ -1,0 +1,19 @@
+Thamesway Consulting Ltd INVOICE
+22 Southwark St, London SE1 1TU, United Kingdom
+billing@thamesway.co.uk
+Bill to: Invoice #: INV-0700
+Ledgerline Labs, Inc. Invoice Date: 04/10/2026
+Attn: Accounts Payable Terms: Net 30
+1216 Broadway, New York, NY 10001 Due Date: 03/11/2026
+ap@ledgerlinelabs.example Purchase Order: PO-4639
+Description Qty Unit price Amount
+HVAC maintenance visit 1 £520.00 £520.00
+Consulting, hourly 10 £225.00 £2,250.00
+Temp staffing, hourly 12 £46.00 £552.00
+Brand design sprint 8 £3,600.00 £28,800.00
+Subtotal £32,122.00
+TOTAL DUE £32,122.00
+Payment details
+Remit to: First Example Bank, acct XXXX9218
+Please reference INV-0700 with your payment. Currency: GBP.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2

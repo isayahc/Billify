@@ -1,0 +1,17 @@
+Acme Corporation INVOICE
+410 Industrial Way, Newark, NJ 07105
+billing@acme-corp.com
+Bill to: Invoice Number: INV-0530
+Ledgerline Labs, Inc. Invoice Date: 09/26/2026
+Attn: Accounts Payable Terms: Net 45
+1216 Broadway, New York, NY 10001 Due Date: 11/10/2026
+ap@ledgerlinelabs.example Your PO Ref: PO-4611
+Description Qty Unit price Amount
+Catered lunch, per head 10 $28.50 $285.00
+Subtotal $285.00
+Sales tax (8.875%) $25.29
+TOTAL DUE $310.29
+Payment details
+Remit to: First Example Bank, acct XXXX5957
+Please reference INV-0530 with your payment. Currency: USD.
+SAMPLE DATA - fictitious vendor and amounts, generated for Money Talks 2
