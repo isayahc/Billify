@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Billify Invoice Demo",
+  "version": "1.1.0",
+  "description": "Prefill invoice and expense forms with demo data.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "http://localhost:5050/*",
+    "https://claude.ai/*",
+    "https://*.claudeusercontent.com/*"
+  ],
+  "action": {
+    "default_title": "Billify Invoice Demo",
+    "default_popup": "popup.html"
+  }
+}

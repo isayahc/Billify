@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Billify</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { width: 350px; margin: 0; padding: 20px; font: 14px/1.45 system-ui, sans-serif; color: #172b3a; background: #f8fafb; }
+    h1 { margin: 0; font-size: 21px; }
+    p { margin: 8px 0 16px; color: #536474; }
+    button { width: 100%; padding: 10px 14px; border: 0; border-radius: 7px; background: #136b55; color: white; font: inherit; font-weight: 600; cursor: pointer; }
+    button:hover { background: #0e5745; }
+    button:disabled { opacity: .5; cursor: default; }
+    button:focus-visible, select:focus-visible { outline: 3px solid #89bdf7; outline-offset: 2px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; }
+    select { width: 100%; padding: 9px; border: 1px solid #cbd5dc; border-radius: 7px; color: inherit; background: white; font: inherit; font-size: 13px; }
+    table { width: 100%; margin: 16px 0; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 7px 0; border-bottom: 1px solid #dfe6ea; text-align: left; vertical-align: top; }
+    th { width: 36%; font-weight: 500; color: #536474; }
+    td { overflow-wrap: anywhere; }
+    #status { margin-bottom: 0; white-space: pre-line; overflow-wrap: anywhere; font-size: 12px; }
+    #status[data-error="true"] { color: #a12727; }
+  </style>
+  <script src="fill-form.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <h1>Billify</h1>
+  <p id="mode">Demo values for your expense form. No server needed.</p>
+  <div id="invoice-picker" hidden>
+    <label for="invoice">Choose invoice</label>
+    <select id="invoice" disabled></select>
+  </div>
+  <button id="extract" type="button" disabled>Extract invoice</button>
+  <section id="result" aria-label="Invoice values to prefill" hidden>
+    <table aria-label="Invoice fields"><tbody id="fields"></tbody></table>
+    <button id="fill" type="button" disabled>Prefill form</button>
+  </section>
+  <p id="status" role="status" aria-live="polite">Loading saved invoice…</p>
+</body>
+</html>
